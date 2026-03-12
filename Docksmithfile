@@ -1,0 +1,6 @@
+FROM alpine:3.18
+WORKDIR /app
+ENV MODE=dev
+COPY . /app
+RUN echo "build complete"
+CMD ["python3", "app.py"]

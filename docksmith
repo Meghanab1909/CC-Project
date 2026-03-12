@@ -1,0 +1,63 @@
+#!/usr/bin/env python3
+import argparse
+import sys
+
+
+def handle_build(args):
+    print("BUILD command executed")
+    print("Tag:", args.tag)
+    print("Context:", args.context)
+    print("No cache:", args.no_cache)
+
+
+def handle_images(args):
+    print("IMAGES command executed")
+    print("Listing images...")
+
+
+def handle_rmi(args):
+    print("RMI command executed")
+    print("Removing image:", args.image)
+
+
+def handle_run(args):
+    print("RUN command executed")
+    print("Image:", args.image)
+    print("Environment variables:", args.env)
+    print("Command override:", args.cmd)
+
+
+def main():
+    parser = argparse.ArgumentParser(prog="docksmith")
+
+    subparsers = parser.add_subparsers(dest="command", required=True)
+
+    # BUILD COMMAND
+    build_parser = subparsers.add_parser("build")
+    build_parser.add_argument("-t", "--tag", required=True)
+    build_parser.add_argument("context")
+    build_parser.add_argument("--no-cache", action="store_true")
+    build_parser.set_defaults(func=handle_build)
+
+    # IMAGES COMMAND
+    images_parser = subparsers.add_parser("images")
+    images_parser.set_defaults(func=handle_images)
+
+    # RMI COMMAND
+    rmi_parser = subparsers.add_parser("rmi")
+    rmi_parser.add_argument("image")
+    rmi_parser.set_defaults(func=handle_rmi)
+
+    # RUN COMMAND
+    run_parser = subparsers.add_parser("run")
+    run_parser.add_argument("-e", "--env", action="append", default=[])
+    run_parser.add_argument("image")
+    run_parser.add_argument("cmd", nargs=argparse.REMAINDER)
+    run_parser.set_defaults(func=handle_run)
+
+    args = parser.parse_args()
+    args.func(args)
+
+
+if __name__ == "__main__":
+    main()
