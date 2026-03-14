@@ -1,9 +1,9 @@
 import argparse
 import sys
 
-from core.build_engine import build_image
-from core.image_store import list_images, remove_image
-from core.runtime import run_container
+from builder.build_engine import build_image
+from utils.image_store import list_images, remove_image
+from runtime.runtime import run_container
 
 
 def validate_image_ref(image_ref: str):
