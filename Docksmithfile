@@ -1,0 +1,15 @@
+# Docksmith demo file
+
+FROM alpine:3.18
+
+WORKDIR /app
+
+ENV MODE=dev
+ENV VERSION=1.0
+
+COPY . /app
+
+RUN echo "Starting build"
+RUN echo "Installing dependencies"
+
+CMD ["python3","app.py"]
