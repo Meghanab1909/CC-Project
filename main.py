@@ -60,7 +60,8 @@ def handle_images(args):
 
 def handle_rmi(args):
     validate_image_ref(args.image)
-    result = remove_image(args.image)
+    name, tag = args.image.split(":", 1)
+    result = remove_image(name, tag)
     print(result["message"])
 
 
